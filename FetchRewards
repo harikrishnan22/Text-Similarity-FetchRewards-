@@ -1,0 +1,36 @@
+def main():
+	sample1 = input("Enter string 1: ")
+	sample2 = input("Enter string 2: ")
+	sample1 = punct(sample1)
+	sample2 = punct(sample2)
+	words_sample1 = generateWordList(sample1)
+	words_sample2 = generateWordList(sample2)
+	wordfreq_sample1 = countFreq(words_sample1)
+	wordfreq_sample2 = countFreq(words_sample2)
+	print("The similarity is: ", stringScore(wordfreq_sample1,wordfreq_sample2))
+
+#Replacing punctuation
+def punct(sample):
+    return sample.replace(',',' ').replace('.', ' ').replace('?',' ').lower()
+
+#Generating word list
+def generateWordList(sample):
+    return sample.split(' ')
+
+#Generating dictionary with counts
+def countFreq(words_sample):
+    wordfreq = []
+    wordfreq_sample = {}
+    for _ in words_sample:
+        wordfreq.append(words_sample.count(_))
+    wordfreq_sample = dict(list(zip(words_sample,wordfreq)))
+    return (wordfreq_sample)
+
+#Checking similarity using intersection
+def stringScore(s1, s2):
+    intersection = s1.keys() & s2.keys()
+    union = s1.keys() | s2.keys()
+    return len(intersection)/len(union)
+
+if __name__ == "__main__":
+	main()
